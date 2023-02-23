@@ -1,0 +1,108 @@
+# Given an array of integers nums and an integer target, return indices of the two numbers
+# such that they add up to target.
+# You may assume that each input would have exactly one solution, and you may not use the same element twice.
+# You can return the answer in any order.
+
+def num_index(array_of_integers, target):
+    for i in range(len(array_of_integers)):
+        for j in range(i+1, len(array_of_integers)):
+           if array_of_integers[i] + array_of_integers[j] == target:
+               return [i,j]
+print(num_index([3, 9], 9))
+
+
+# You are given an array prices where prices[i] is the price of a given stock on the ith day.
+# You want to maximize your profit by choosing a single day to buy one stock and choosing
+# a different day in the future to sell that stock.
+# Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+def max_profit(prices):
+    profit = []
+    for i in range(len(prices)):
+        for j in range(i+1, len(prices)):
+            if prices[j] - prices[i] > 0:
+                profit.append(prices[j] - prices[i])
+    if profit:
+        return max(profit)
+    return 0
+
+
+# Given an integer array nums, return true if any value appears at least twice in the array,
+# and return false if every element is distinct.
+
+# Option 1
+
+def check_distinct(nums):
+    for i in range(len(nums)):
+        for j in range(i+1, len(nums)):
+            if nums[i] == nums[j]:
+                return True
+    return False
+
+
+# option 2
+
+def check_distinct_2(nums):
+    if len(nums) == len(set(nums)):
+        return False
+    return True
+
+# Given two integers a and b, return the sum of the two integers without using the operators + and -.
+
+def sum_of_integers(a, b):
+    while b:
+        carry = a & b
+        a = a ^ b
+        b = carry << 1
+        print(b)
+    return a
+
+
+
+# Write a function that takes the binary representation of an unsigned integer
+# and returns the number of '1' bits it has (also known as the Hamming weight).
+
+def num_of_ones(number):
+    number = list(bin(number))
+    count = number.count("1")
+    return count
+
+
+
+# Reverse bits of a given 32 bits unsigned integer.
+def reverse_bits(num,size):
+    rev_bits = bin(num)[::-1][0:-2]
+    rev_bits = rev_bits + (size - len(rev_bits))*"0"
+    return int(rev_bits,2)
+
+
+
+# Given an integer array nums, find the subarray  with the largest sum, and return its sum.
+# Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+def max_sub_array(nums):
+    max_sub = []
+    max_sum = []
+    if all([elem > 0 for elem in nums]):
+        return sum(nums), nums
+    if all([elem < 0 for elem in nums]):
+        return max(nums), [max(nums)]
+    if not all([elem > 0 for elem in nums]) or not all([elem < 0 for elem in nums]):
+        for i in range(len(nums)):
+            for j in range(i+1,len(nums) + 1):
+             max_amount = sum(nums[i:j])
+             max_sum.append(nums[i:j])
+             max_sub.append(max_amount)
+        return max(max_sub), [k for k in max_sum if sum(k) == max(max_sub)]
+
+
+
+
+
+
+
+
+
+
+
+
+
